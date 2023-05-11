@@ -61,6 +61,7 @@ class StreamMessageWidget extends StatefulWidget {
     this.showInChannelIndicator = false,
     this.onReplyTap,
     this.onThreadTap,
+    this.actionsDialogUseSafeArea = true,
     this.showUsername = true,
     this.showTimestamp = true,
     this.showReactions = true,
@@ -556,6 +557,9 @@ class StreamMessageWidget extends StatefulWidget {
   final String /*center|top|bottom|left|right*/
       imageAttachmentThumbnailCropType;
 
+  /// Sets the useSafeArea on the message actions dialog.
+  final bool actionsDialogUseSafeArea;
+
   /// {@template copyWith}
   /// Creates a copy of [StreamMessageWidget] with specified attributes
   /// overridden.
@@ -627,6 +631,7 @@ class StreamMessageWidget extends StatefulWidget {
     String? imageAttachmentThumbnailResizeType,
     String? imageAttachmentThumbnailCropType,
     AttachmentActionsBuilder? attachmentActionsModalBuilder,
+    bool? actionsDialogUseSafeArea,
   }) {
     assert(
       bottomRowBuilder == null || bottomRowBuilderWithDefaultWidget == null,
@@ -715,6 +720,8 @@ class StreamMessageWidget extends StatefulWidget {
           this.imageAttachmentThumbnailCropType,
       attachmentActionsModalBuilder:
           attachmentActionsModalBuilder ?? this.attachmentActionsModalBuilder,
+      actionsDialogUseSafeArea:
+          actionsDialogUseSafeArea ?? this.actionsDialogUseSafeArea,
     );
   }
 
@@ -1144,6 +1151,7 @@ class _StreamMessageWidgetState extends State<StreamMessageWidget>
     showDialog(
       useRootNavigator: false,
       context: context,
+      useSafeArea: widget.actionsDialogUseSafeArea,
       barrierColor: _streamChatTheme.colorTheme.overlay,
       builder: (context) => StreamChannel(
         channel: channel,
